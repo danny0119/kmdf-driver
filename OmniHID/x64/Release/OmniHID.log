@@ -1,0 +1,43 @@
+﻿  Building 'OmniHID' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
+  Stamping x64\Release\OmniHID.inf
+  Stamping [Version] section with DriverVer=05/21/2026,18.43.47.850
+  DeviceControl.c
+  DriverEntry.c
+  IhvbPdo.c
+  LogitechDescriptors.c
+  PulseEngine.c
+  StealthEngine.c
+D:\OmniHID\PulseEngine.c(7,9): warning C4005: “DIAG”: 宏重定义
+      D:\OmniHID\OmniHID.h(26,9):
+      参见“DIAG”的前一个定义
+  
+D:\OmniHID\PulseEngine.c(25,11): warning C4101: “oldIrql”: 未引用的局部变量
+D:\OmniHID\PulseEngine.c(46,23): warning C4101: “kbdIrql”: 未引用的局部变量
+  UrbForge.c
+D:\OmniHID\UrbForge.c(12,9): warning C4005: “DIAG”: 宏重定义
+      D:\OmniHID\OmniHID.h(26,9):
+      参见“DIAG”的前一个定义
+  
+  正在生成代码...
+  OmniHID.vcxproj -> D:\OmniHID\x64\Release\OmniHID.sys
+  Done Adding Additional Store
+  Successfully signed: D:\OmniHID\x64\Release\OmniHID.sys
+  
+  ........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  D:\OmniHID\x64\Release\OmniHID\omnihid.cat
+  Set catalog attribute.
+  WdkVersion: 10.0.28000.0
+  Set catalog attribute.
+  WdkAssemblyVersion: 10.0.28000.1839
+  Done Adding Additional Store
+  Successfully signed: D:\OmniHID\x64\Release\OmniHID\omnihid.cat
+  

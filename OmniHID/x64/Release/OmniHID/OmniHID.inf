@@ -1,0 +1,75 @@
+;
+; OmniHID.inf - 虚拟 USB 总线驱动 (VBD) 安装文件
+;
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = System
+ClassGuid   = {4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider    = %ManufacturerName%
+DriverVer = 05/21/2026,18.43.47.850
+CatalogFile = OmniHID.cat
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 12 ; 映射到 %SystemRoot%\system32\drivers (规避 DIRID 13 校验)
+
+[SourceDisksNames]
+1 = %DiskName%
+
+[SourceDisksFiles]
+OmniHID.sys = 1
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64 ; 去除复杂的版本限定，使用标准 NTamd64
+
+[Standard.NTamd64]
+%OmniHID.DeviceDesc%=OmniHID_Device, Root\OmniHIDBus ; 根枚举总线
+
+;*****************************************
+; Device Install Section
+;*****************************************
+
+[OmniHID_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+OmniHID.sys
+
+;-------------- Service installation
+[OmniHID_Device.NT.Services]
+AddService = OmniHID,%SPSVCINST_ASSOCSERVICE%, OmniHID_Service_Inst
+
+;-------------- Service registry settings
+[OmniHID_Service_Inst]
+DisplayName    = %OmniHID.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\OmniHID.sys ; 对应 DestinationDirs 的 12
+AddReg         = OmniHID_Service_AddReg
+
+[OmniHID_Service_AddReg]
+; 在此可添加内核参数
+
+;-------------- WDF coinstaller
+[OmniHID_Device.NT.Wdf]
+KmdfService = OmniHID, OmniHID_wdfsect
+
+[OmniHID_wdfsect]
+KmdfLibraryVersion = 1.35
+
+;*****************************************
+; Strings
+;*****************************************
+
+[Strings]
+SPSVCINST_ASSOCSERVICE = 0x00000002
+ManufacturerName = "OmniHID Virtual Peripherals"
+DiskName = "OmniHID Installation Disk"
+OmniHID.DeviceDesc = "OmniHID Virtual USB Bus Enumerator"
+OmniHID.SVCDESC = "OmniHID Virtual Bus Engine"
